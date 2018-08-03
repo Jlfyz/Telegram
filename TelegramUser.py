@@ -1,4 +1,6 @@
 # coding=utf-8
+# /home/jlfyz/PycharmProjects/Telegram/venv
+"""
 import TelegramClient
 
 
@@ -31,3 +33,94 @@ def main():
 
 if __name__ == '__main__':
     main()
+"""
+import TelegramClient
+import csv
+"""
+def main():
+    counter = 0
+    tmp_list = []
+    channel = input('Link of channel pls, example: https://t.me/qwertyuiop1234567890 ')
+    print('------------------------')
+    print('Temporary list is opened')
+    print('------------------------')
+    with open('im.txt') as f:
+        len_of_file = sum(1 for _ in f)
+        f.close()
+    with open('im.txt') as f:
+        print('Reading file')
+        print('------------------------')
+        for line in f:
+            tmp = line[1:].replace('\n', '')
+            print(tmp)
+            print('------------------------')
+            tmp_list.append(tmp)
+            print(tmp_list)
+            print('------------------------')
+            counter += 1
+            if len(tmp_list) == 15 or len_of_file == counter:
+                clienti = TelegramClient.TeleClient(
+                    tmp_list,
+                    channel,
+                    counter
+                )
+                clienti.add_contact()
+                clienti.invite_to_channel()
+                clienti.disconnect()
+                print('Success')
+                print('------------------------')
+                tmp_list = []
+                print('Temporary list is refreshed')
+                print('------------------------')
+    print('Temporary list is closed')
+    print('------------------------')
+    print('End of program')
+    print('------------------------')
+"""
+
+
+def main():
+    counter = 0
+    tmp_list = []
+    channel = input('Link of channel pls, example: https://t.me/qwertyuiop1234567890 ')
+    print('------------------------')
+    print('Temporary list is opened')
+    print('------------------------')
+    with open('fff.csv') as f:
+        len_of_file = sum(1 for _ in f)
+        f.close()
+    with open('fff.csv') as csvfile:
+        csv_reader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+        print('Reading file')
+        print('------------------------')
+        for row in csv_reader:
+            tmp = [row[0][1:].replace('\n', ''), row[1]]
+            print(tmp)
+            print('------------------------')
+            tmp_list.append(tmp)
+            print(tmp_list)
+            print('------------------------')
+            counter += 1
+            if len(tmp_list) == 15 or len_of_file == counter:
+                clienti = TelegramClient.TeleClient(
+                    tmp_list,
+                    channel,
+                    counter
+                )
+                clienti.add_contact()
+                clienti.invite_to_channel()
+                clienti.disconnect()
+                print('Success')
+                print('------------------------')
+                tmp_list = []
+                print('Temporary list is refreshed')
+                print('------------------------')
+    print('Temporary list is closed')
+    print('------------------------')
+    print('End of program')
+    print('------------------------')
+
+
+if __name__ == '__main__':
+    main()
+
