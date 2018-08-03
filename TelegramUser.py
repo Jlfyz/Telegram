@@ -86,10 +86,10 @@ def main():
     print('------------------------')
     print('Temporary list is opened')
     print('------------------------')
-    with open('fff.csv') as f:
+    with open('usernames.csv') as f:
         len_of_file = sum(1 for _ in f)
         f.close()
-    with open('fff.csv') as csvfile:
+    with open('usernames.csv') as csvfile:
         csv_reader = csv.reader(csvfile, delimiter=' ', quotechar='|')
         print('Reading file')
         print('------------------------')
