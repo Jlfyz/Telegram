@@ -35,6 +35,7 @@ if __name__ == '__main__':
     main()
 """
 import TelegramClient
+import socks
 import csv
 """
 def main():
@@ -83,44 +84,87 @@ def main():
     counter = 0
     tmp_list = []
     channel = input('Link of channel pls, example: https://t.me/qwertyuiop1234567890 ')
-    print('------------------------')
-    print('Temporary list is opened')
-    print('------------------------')
-    with open('usernames.csv') as f:
-        len_of_file = sum(1 for _ in f)
-        f.close()
-    with open('usernames.csv') as csvfile:
-        csv_reader = csv.reader(csvfile, delimiter=' ', quotechar='|')
-        print('Reading file')
-        print('------------------------')
-        for row in csv_reader:
-            tmp = [row[0][1:].replace('\n', ''), row[1]]
-            print(tmp)
-            print('------------------------')
-            tmp_list.append(tmp)
-            print(tmp_list)
-            print('------------------------')
-            counter += 1
-            if len(tmp_list) == 15 or len_of_file == counter:
-                clienti = TelegramClient.TeleClient(
-                    tmp_list,
-                    channel,
-                    counter
+    """
+    We need to check democracy of channel
+    """
+    test = TelegramClient.TeleClient(
+                    'Test'
                 )
-                clienti.add_contact()
-                clienti.invite_to_channel()
+    print('Its test of democracy of channel')
+    if test.def_channel(channel):
+        test.disconnect()
+        print('------------------------')
+        print('Temporary list is opened')
+        print('------------------------')
+        with open('usernames.csv') as f:
+            len_of_file = sum(1 for _ in f)
+            f.close()
+        with open('usernames.csv') as csvfile:
+            csv_reader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+            print('Reading file')
+            print('------------------------')
+            for row in csv_reader:
+                tmp = [row[0][1:].replace('\n', ''), row[1]]
+                print(tmp)
+                print('------------------------')
+                tmp_list.append(tmp)
+                print(tmp_list)
+                print('------------------------')
+                counter += 1
+                if len(tmp_list) == 15 or len_of_file == counter:
+                    clienti = TelegramClient.TeleClient(
+                        counter
+                    )
+                    clienti.def_usernames(tmp_list)
+                    clienti.def_channel(channel)
+                    clienti.add_contact()
+                    clienti.invite_to_channel()
+                    clienti.disconnect()
+                    print('Success')
+                    print('------------------------')
+                    tmp_list = []
+                    print('Temporary list is refreshed')
+                    print('------------------------')
+        print('Temporary list is closed')
+        print('------------------------')
+        print('End of program')
+        print('------------------------')
+    else:
+        test.disconnect()
+        while True:
+            try:
+                counter = int(input('Sum of users to add'))
+                break
+            except Exception as err:
+                print(err)
+                print('------------------------')
+                continue
+        with open('proxy.csv') as csvfile:
+            csv_reader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+            print('Reading proxy file')
+            print('------------------------')
+            wait_counter = 0
+            for row in csv_reader:
+                if wait_counter == 6:
+                    wait_counter = 0
+                    input('You have time to use another sim cards')
+                    print('------------------------')
+                    print(row)
+                proxy = (socks.HTTP, row[0], int(row[1]),
+                         row[2], row[3])
+                clienti = TelegramClient.TeleClient(
+                    counter,
+                    proxy
+                )
+                clienti.def_channel(channel)
+                clienti.self_add_channel()
                 clienti.disconnect()
                 print('Success')
                 print('------------------------')
-                tmp_list = []
-                print('Temporary list is refreshed')
-                print('------------------------')
-    print('Temporary list is closed')
-    print('------------------------')
-    print('End of program')
-    print('------------------------')
+                wait_counter += 1
+        print('End of program')
+        print('------------------------')
 
 
 if __name__ == '__main__':
     main()
-
