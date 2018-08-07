@@ -82,17 +82,17 @@ class TeleClient:
             self.channel = self.client.get_entity(self.channel)
             print('Channel to add is - '+str(self.channel))
             print('------------------------')
+            if self.channel.democracy:
+                print('Democracy is True')
+                print('------------------------')
+                return True
+            else:
+                print('Democracy is False')
+                print('------------------------')
+                return False
         except Exception as err:
             print(err)
             print('------------------------')
-        if self.channel.democracy:
-            print('Democracy is True')
-            print('------------------------')
-            return True
-        else:
-            print('Democracy is False')
-            print('------------------------')
-            return False
 
     def self_add_channel(self):
         """

@@ -111,7 +111,7 @@ def main():
                 print(tmp_list)
                 print('------------------------')
                 counter += 1
-                if len(tmp_list) == 15 or len_of_file == counter:
+                if 15 == len(tmp_list) or counter == len_of_file:
                     clienti = TelegramClient.TeleClient(
                         counter
                     )
@@ -153,7 +153,7 @@ def main():
                 proxy = (socks.HTTP, row[0], int(row[1]),
                          row[2], row[3])
                 clienti = TelegramClient.TeleClient(
-                    counter,
+                    '{0}_autoadd'.format(str(counter)),
                     proxy
                 )
                 clienti.def_channel(channel)
