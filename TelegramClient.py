@@ -58,7 +58,6 @@ class TeleClient:
             except Exception as err:
                 print(i)
                 del self.usernames[i]
-                i = 0
                 print(len(self.usernames))
                 print(err)
                 print('------------------------')
