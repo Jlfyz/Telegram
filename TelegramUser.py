@@ -100,7 +100,7 @@ def main():
             len_of_file = sum(1 for _ in f)
             f.close()
         with open('usernames.csv') as csvfile:
-            csv_reader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+            csv_reader = csv.reader(csvfile, delimiter=',', quotechar='|')
             print('Reading file')
             print('------------------------')
             for row in csv_reader:
@@ -140,29 +140,38 @@ def main():
                 print('------------------------')
                 continue
         with open('proxy.csv') as csvfile:
-            csv_reader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+            csv_reader = csv.reader(csvfile, delimiter=',', quotechar='|')
             print('Reading proxy file')
             print('------------------------')
             wait_counter = 0
+            proxies = []
             for row in csv_reader:
+                proxies.append((socks.HTTP, row[0], int(row[1]),
+                                row[2], row[3]))
+            print(proxies)
+            i = 0
+            while i < counter:
                 if wait_counter == 6:
                     wait_counter = 0
                     input('You have time to use another sim cards')
                     print('------------------------')
-                    print(row)
-                proxy = (socks.HTTP, row[0], int(row[1]),
-                         row[2], row[3])
-                session = '{0}_autoadd'.format(str(counter))
-                client = TelegramClient.TeleClient(
-                    session,
-                    proxy
-                )
-                client.def_channel(channel)
-                client.self_add_channel()
-                client.disconnect()
-                print('Success')
-                print('------------------------')
-                wait_counter += 1
+                for iterator in range(len(proxies)):
+                    session = '{0}_autoadd'.format(str(i))
+                    client = TelegramClient.TeleClient(
+                        session,
+                        proxies[iterator]
+                    )
+                    client.def_channel(channel)
+                    client.self_add_channel()
+                    client.disconnect()
+                    print('Success')
+                    print('------------------------')
+                    print(i)
+                    if i + 1 <= counter:
+                        i += 1
+                    else:
+                        break
+                    wait_counter += 1
         print('End of program')
         print('------------------------')
 
