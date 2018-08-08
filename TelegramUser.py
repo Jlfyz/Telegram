@@ -112,14 +112,14 @@ def main():
                 print('------------------------')
                 counter += 1
                 if 15 == len(tmp_list) or counter == len_of_file:
-                    clienti = TelegramClient.TeleClient(
+                    client = TelegramClient.TeleClient(
                         counter
                     )
-                    clienti.def_usernames(tmp_list)
-                    clienti.def_channel(channel)
-                    clienti.add_contact()
-                    clienti.invite_to_channel()
-                    clienti.disconnect()
+                    client.def_usernames(tmp_list)
+                    client.def_channel(channel)
+                    client.add_contact()
+                    client.invite_to_channel()
+                    client.disconnect()
                     print('Success')
                     print('------------------------')
                     tmp_list = []
@@ -152,13 +152,14 @@ def main():
                     print(row)
                 proxy = (socks.HTTP, row[0], int(row[1]),
                          row[2], row[3])
-                clienti = TelegramClient.TeleClient(
-                    '{0}_autoadd'.format(str(counter)),
+                session = '{0}_autoadd'.format(str(counter))
+                client = TelegramClient.TeleClient(
+                    session,
                     proxy
                 )
-                clienti.def_channel(channel)
-                clienti.self_add_channel()
-                clienti.disconnect()
+                client.def_channel(channel)
+                client.self_add_channel()
+                client.disconnect()
                 print('Success')
                 print('------------------------')
                 wait_counter += 1

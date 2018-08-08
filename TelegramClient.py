@@ -50,7 +50,7 @@ class TeleClient:
         i = 0
         while i < len(self.usernames):
             try:
-                self.usernames[i][0] = self.client.get_entity(self.usernames[i])
+                self.usernames[i][0] = self.client.get_entity(self.usernames[i][0])
                 """[0]"""
                 print(str(self.usernames[i][0]) + ' new entity')
                 print('------------------------')
@@ -100,7 +100,7 @@ class TeleClient:
         Second time u don't need any log in,
         do not use it without def_channel().
         """
-        if self.flag_channel:
+        if not self.flag_channel:
             try:
                 sleep(31)
                 self.client(JoinChannelRequest(self.channel))
