@@ -1,14 +1,12 @@
 # coding=utf-8
 # /home/jlfyz/PycharmProjects/Telegram/venv
-from typing import List, Any, Union, Coroutine
-import os
-from telethon.tl.types import InputChannel, InputUser, InputPhoneContact, ChannelForbidden, ChatForbidden, ChatEmpty
-from telethon.tl.functions.channels import InviteToChannelRequest
+from telethon.tl.types import ChannelForbidden, ChatEmpty, ChatForbidden, InputChannel, InputUser, InputPhoneContact
+from telethon.tl.functions.channels import InviteToChannelRequest, JoinChannelRequest
 from telethon.tl.functions.contacts import ImportContactsRequest
-from telethon.tl.functions.channels import JoinChannelRequest
-from telethon import TelegramClient, sync,  errors
+from telethon import TelegramClient, sync, errors
 from time import sleep
 import constans
+import os
 import re
 
 
@@ -164,6 +162,7 @@ class TeleClient:
 
     def disconnect(self):
         """
+
         Disconnecting from Telegram to open new session
         """
         self.client.disconnect()
