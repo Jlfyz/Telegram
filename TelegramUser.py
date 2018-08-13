@@ -3,6 +3,15 @@
 import TelegramClient
 import socks
 import csv
+"""
+This program using telegram client tools that working with telethon library
+
+When the program starts You need to test the channel to which you need to add
+users, if channel's democracy is true program starts to add users from usernames.csv
+by portions, but you need to be on this channel,
+if channel's democracy is false program choose another path, selfadding to channel
+with proxies in file porxy.csv, after 6 persons u need to change sim cards
+"""
 
 
 def main():
@@ -98,6 +107,15 @@ def main():
                     else:
                         break
                     wait_counter += 1
+        i = 0
+        while i < counter:
+            try:
+                os.remove("{0}_autoadd.session".format(str(i)))
+                print("File Removed!")
+                i += 1
+            except Exception as err:
+                print(err)
+                i += 1
         print('End of program')
         print('------------------------')
 
