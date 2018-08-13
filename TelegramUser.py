@@ -71,8 +71,9 @@ def main():
             wait_counter = 0
             proxies = []
             for row in csv_reader:
-                proxies.append((socks.HTTP, row[0], int(row[1]),
-                                row[2], row[3]))
+                proxies.append((socks.HTTP, row[0], int(row[1]), True,
+                                row[2], row[3]
+                                ))
             print(proxies)
             i = 0
             while i < counter:

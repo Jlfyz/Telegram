@@ -5,6 +5,8 @@ from telethon.tl.functions.channels import InviteToChannelRequest, JoinChannelRe
 from telethon.tl.functions.contacts import ImportContactsRequest
 from telethon import TelegramClient, sync, errors
 from time import sleep
+from datetime import timedelta, datetime
+from telethon.network import ConnectionHttp
 import constans
 import os
 import re
@@ -25,12 +27,18 @@ class TeleClient:
         self.proxy = proxy
         self.flag_user = False
         self.flag_channel = False
-        self.client = TelegramClient(
-            self.session, constans.api_id, constans.api_hash,
-            request_retries=1, connection_retries=1,
-            flood_sleep_threshold=120, connection=ConnectionHttp,
-            proxy=proxy
-        )
+        if self.proxy is None:
+            self.client = TelegramClient(
+                self.session, constans.api_id, constans.api_hash,
+                request_retries=1, connection_retries=1,
+                flood_sleep_threshold=120, proxy=self.proxy
+            )
+        else:
+            self.client = TelegramClient(
+                self.session, constans.api_id, constans.api_hash,
+                request_retries=1, connection_retries=1, proxy=self.proxy,
+                flood_sleep_threshold=120
+            )
         self.client.connect()
         if not self.client.is_user_authorized():
             phone_number = input('Please enter your phone (or bot token): ')
@@ -97,7 +105,7 @@ class TeleClient:
         Second time u don't need any log in,
         do not use it without def_channel().
         """
-        if not self.flag_channel:
+        if self.flag_channel:
             try:
                 sleep(31)
                 self.client(JoinChannelRequest(self.channel))
