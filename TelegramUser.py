@@ -59,6 +59,14 @@ def main():
                     tmp_list = []
                     print('Temporary list is refreshed')
                     print('------------------------')
+        i = 0
+        while i < counter:
+            try:
+                os.remove("{0}.session".format(str(i)))
+                print("File Removed!")
+                i += 1
+            except Exception as err:
+                i += 1
         print('Temporary list is closed')
         print('------------------------')
         print('End of program')
