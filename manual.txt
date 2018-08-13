@@ -1,0 +1,11 @@
+This program using telegram client tools that working with telethon library
+When the program starts we test the channel to which you need to add
+users, if channel's democracy is true program starts to add users from usernames.csv
+by portions, but you need to be on this channel,
+if channel's democracy is false program choose another path, selfadding to channel
+with proxies in file porxy.csv, after 6 persons u need to change sim cards
+
+In usernames.csv scheme = @username,+phone
+In proxy.csv sceme =ip,port,login,password
+
+
