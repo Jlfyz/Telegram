@@ -78,7 +78,8 @@ def main():
         while True:
             try:
                 counter = int(input('Sum of users to add/Кол-во пользователей которых надо добавить '))
-                phone_counter = int(input('Sum of phones you have/Сколько у вас телевонов? '))
+                phone_counter = int(input('Sum of phones you have/Сколько сим карт может быть одновременно '
+                                          'задейственно? '))
                 break
             except Exception as err:
                 print(err)
