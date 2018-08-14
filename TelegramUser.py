@@ -3,6 +3,7 @@
 import TelegramClient
 import socks
 import csv
+
 """
 This program using telegram client tools that working with telethon library
 
@@ -24,18 +25,19 @@ def main():
     test = TelegramClient.TeleClient(
                     'Test'
                 )
-    print('Its test of democracy of channel')
+    print('It\'s test of democracy of channel/Это тест приватности канала ')
     if test.def_channel(channel):
+        delimiter = input('Enter delimiter/Введите знак который разделяет ячейки таблицы \' \',\',\' ')
         test.disconnect()
         print('------------------------')
-        print('Temporary list is opened')
+        print('Temporary list is opened/Временный список открыт ')
         print('------------------------')
         with open('usernames.csv') as f:
             len_of_file = sum(1 for _ in f)
             f.close()
         with open('usernames.csv') as csvfile:
-            csv_reader = csv.reader(csvfile, delimiter=',', quotechar='|')
-            print('Reading file')
+            csv_reader = csv.reader(csvfile, delimiter=delimiter, quotechar='|')
+            print('Reading file/Читаем файл ')
             print('------------------------')
             for row in csv_reader:
                 tmp = [row[0][1:].replace('\n', ''), row[1]]
@@ -54,36 +56,38 @@ def main():
                     client.add_contact()
                     client.invite_to_channel()
                     client.disconnect()
-                    print('Success')
+                    print('Success/Успех ')
                     print('------------------------')
                     tmp_list = []
-                    print('Temporary list is refreshed')
+                    print('Temporary list is refreshed/Временный список обнулён ')
                     print('------------------------')
         i = 0
         while i < counter:
             try:
                 os.remove("{0}.session".format(str(i)))
-                print("File Removed!")
+                print("File Removed!/Файл успешно удалён")
                 i += 1
             except Exception as err:
                 i += 1
-        print('Temporary list is closed')
+        print('Temporary list is closed/Временный список закрыт ')
         print('------------------------')
-        print('End of program')
+        print('End of program/Конец программы ')
         print('------------------------')
     else:
         test.disconnect()
         while True:
             try:
-                counter = int(input('Sum of users to add'))
+                counter = int(input('Sum of users to add/Кол-во пользователей которых надо добавить '))
+                phone_counter = int(input('Sum of phones you have/Сколько у вас телевонов? '))
                 break
             except Exception as err:
                 print(err)
                 print('------------------------')
                 continue
+        delimiter = input('Enter delimiter/Введите знак который разделяет ячейки таблицы \' \',\',\' ')
         with open('proxy.csv') as csvfile:
-            csv_reader = csv.reader(csvfile, delimiter=',', quotechar='|')
-            print('Reading proxy file')
+            csv_reader = csv.reader(csvfile, delimiter=delimiter, quotechar='|')
+            print('Reading proxy file/Читаем прокси файл ')
             print('------------------------')
             wait_counter = 0
             proxies = []
@@ -94,37 +98,60 @@ def main():
             print(proxies)
             i = 0
             while i < counter:
-                if wait_counter == 6:
-                    wait_counter = 0
-                    input('You have time to use another sim cards')
-                    print('------------------------')
-                for iterator in range(len(proxies)):
-                    session = '{0}_autoadd'.format(str(i))
-                    client = TelegramClient.TeleClient(
-                        session,
-                        proxies[iterator]
-                    )
-                    client.def_channel(channel)
-                    client.self_add_channel()
-                    client.disconnect()
-                    print('Success')
-                    print('------------------------')
-                    print(i)
-                    if i + 1 <= counter:
-                        i += 1
+                if counter < len(proxies):
+                    for iterator in range(counter):
+                        if wait_counter == phone_counter:
+                            wait_counter = 0
+                            input('You have time to use another sim cards/У вас есть время заменить сим карты ')
+                            print('------------------------')
+                        session = '{0}_autoadd'.format(str(i))
+                        client = TelegramClient.TeleClient(
+                            session,
+                            proxies[iterator]
+                        )
+                        client.def_channel(channel)
+                        client.self_add_channel()
+                        client.disconnect()
+                        print('Success/Успех ')
+                        print('------------------------')
+                        print(i)
+                        if i + 1 <= counter:
+                            i += 1
+                        else:
+                            break
+                        wait_counter += 1
                     else:
-                        break
-                    wait_counter += 1
+                        for iterator in range(len(proxies)):
+                            if wait_counter == phone_counter:
+                                wait_counter = 0
+                                input('You have time to use another sim cards/У вас есть время заменить сим карты ')
+                                print('------------------------')
+                            session = '{0}_autoadd'.format(str(i))
+                            client = TelegramClient.TeleClient(
+                                session,
+                                proxies[iterator]
+                            )
+                            client.def_channel(channel)
+                            client.self_add_channel()
+                            client.disconnect()
+                            print('Success/Успех ')
+                            print('------------------------')
+                            print(i)
+                            if i + 1 <= counter:
+                                i += 1
+                            else:
+                                break
+                            wait_counter += 1
         i = 0
         while i < counter:
             try:
                 os.remove("{0}_autoadd.session".format(str(i)))
-                print("File Removed!")
+                print("File Removed!/Файл успешно удалён ")
                 i += 1
             except Exception as err:
                 print(err)
                 i += 1
-        print('End of program')
+        print('End of program/Конец программы ')
         print('------------------------')
 
 

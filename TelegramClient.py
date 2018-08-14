@@ -41,9 +41,10 @@ class TeleClient:
             )
         self.client.connect()
         if not self.client.is_user_authorized():
-            phone_number = input('Please enter your phone (or bot token): ')
+            phone_number = input('Please enter your phone (or bot token)/Пожалуйста '
+                                 'введите номер телефона(или токен бота): ')
             self.client.send_code_request(phone_number)
-            me = self.client.sign_in(phone_number, input('Enter code: '))
+            me = self.client.sign_in(phone_number, input('Enter code/Введите код: '))
 
     def def_usernames(self, list_of_usernames):
         """
@@ -58,7 +59,7 @@ class TeleClient:
             try:
                 self.usernames[i][0] = self.client.get_entity(self.usernames[i][0])
                 """[0]"""
-                print(str(self.usernames[i][0]) + ' new entity')
+                print(str(self.usernames[i][0]) + ' new entity/новая сущность')
                 print('------------------------')
                 i += 1
             except Exception as err:
@@ -88,12 +89,12 @@ class TeleClient:
             print('Channel to add is - '+str(self.channel))
             print('------------------------')
             if self.channel.democracy:
-                print('Democracy is True')
-                print('------------------------')
+                # print('Democracy is True')
+                # print('------------------------')
                 return True
             else:
-                print('Democracy is False')
-                print('------------------------')
+                # print('Democracy is False')
+                # print('------------------------')
                 return False
         except Exception as err:
             print(err)
@@ -112,7 +113,7 @@ class TeleClient:
             except Exception as err:
                 print(err)
         else:
-            print('You don\'t define channel try again')
+            print('You don\'t define channel try again/Вы не определили канал')
 
     def add_contact(self):
         """
@@ -133,12 +134,15 @@ class TeleClient:
                         )
                         self.client(ImportContactsRequest([contact]))
                         print('Successfully added '+str(contact)+' to your contact\'s')
+                        print('Успешно добавлен '+str(contact)+' в ваши контакты')
                         print('------------------------')
                     except Exception as err:
                         print(err)
                         print('------------------------')
         else:
-            print('You don\'t define users to add, please try again')
+            print('You don\'t define users to add, please try again'
+                  '/Вы не определили ползователей которых надо добавть, пожфлуйста попробуйте'
+                  'еще раз ')
 
     def invite_to_channel(self):
         """
@@ -160,13 +164,15 @@ class TeleClient:
                                                                   )]
                         ))
                         print('Successfully added ' + str(self.usernames[i][0]) + ' to '+str(self.channel))
+                        print('Успешно добавлен ' + str(self.usernames[i][0]) + ' в ' + str(self.channel))
                         print('------------------------')
                         sleep(5)
                 except Exception as err:
                     print(err)
                     print('------------------------')
         else:
-            print('You don\'t define channel and users to add, please try again')
+            print('You don\'t define channel and users to add, please try again'
+                  'Вы не определили канал и/или ползователей')
 
     def disconnect(self):
         """
@@ -175,4 +181,5 @@ class TeleClient:
         """
         self.client.disconnect()
         print('Disconnecting from account. Closing session. Success!')
+        print('Выходим из аккаунта. Закрываем сеанс. Успех!')
         print('------------------------')
